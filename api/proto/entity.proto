@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package api.proto;
+
+import "google/protobuf/timestamp.proto";
+
+// Generated Go code will be in package pb (crud/pb)
+option go_package = "crud/pb;pb";
+
+// Post (blog post) is the main resource.
+// PostID = id, Title = title, Content = content, Author = author,
+// Publication Date = publication_date, Tags = tags (repeated).
+message Post {
+  int64 id = 1;                                    // PostID
+  string title = 2;
+  string content = 3;
+  string author = 4;
+  repeated string tags = 5;                         // multiple tags per post
+  google.protobuf.Timestamp publication_date = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+// ----- Create -----
+message CreatePostRequest {
+  int64 id = 1;
+  string title = 2;
+  string content = 3;
+  string author = 4;
+  repeated string tags = 5;
+  google.protobuf.Timestamp publication_date = 6;
+}
+
+message CreatePostResponse {
+  Post post = 1;
+}
+
+// ----- Read (Get one) -----
+message GetPostRequest {
+  int64 id = 1;
+}
+
+message GetPostResponse {
+  Post post = 1;
+}
+
+// ----- Update -----
+message UpdatePostRequest {
+  int64 id = 1;
+  string title = 2;
+  string content = 3;
+  string author = 4;
+  repeated string tags = 5;
+  google.protobuf.Timestamp publication_date = 6;
+}
+
+message UpdatePostResponse {
+  Post post = 1;
+}
+
+// ----- Delete -----
+message DeletePostRequest {
+  int64 id = 1;
+}
+
+message DeletePostResponse {
+  bool deleted = 1;
+}
+
+// Service definition with CRUD RPCs for blog posts
+service PostService {
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+  rpc GetPost(GetPostRequest) returns (GetPostResponse);
+  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse);
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
+}
