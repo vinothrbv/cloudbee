@@ -1,14 +1,15 @@
 package main
 
 import (
-	"crud/app/domain/repository"
-	"crud/app/external/server"
-	"crud/pb"
 	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/vinothrbv/cloudbee/app/domain/repository"
+	"github.com/vinothrbv/cloudbee/app/external/server"
+	"github.com/vinothrbv/cloudbee/pb"
 
 	"google.golang.org/grpc"
 )

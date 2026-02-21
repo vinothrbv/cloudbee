@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"crud/app/domain/entity"
-	"crud/app/domain/repository"
-	"crud/pb"
+	"github.com/vinothrbv/cloudbee/app/domain/entity"
+	"github.com/vinothrbv/cloudbee/app/domain/repository"
+	"github.com/vinothrbv/cloudbee/pb"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

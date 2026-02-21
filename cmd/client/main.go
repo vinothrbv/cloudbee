@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"crud/pb"
+	"github.com/vinothrbv/cloudbee/pb"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

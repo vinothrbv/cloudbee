@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"crud/app/domain/entity"
+	"github.com/vinothrbv/cloudbee/app/domain/entity"
 	"errors"
 	"sync"
 )
