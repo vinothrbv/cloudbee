@@ -1,9 +1,10 @@
 package repository
 
 import (
-	"github.com/vinothrbv/cloudbee/app/domain/entity"
 	"errors"
 	"sync"
+
+	"github.com/vinothrbv/cloudbee/app/domain/entity"
 )
 
 type PostRepository interface {
@@ -11,6 +12,7 @@ type PostRepository interface {
 	Get(id int64) (*entity.Post, error)
 	Update(post *entity.Post) error
 	Delete(id int64) error
+	List() []entity.Post
 }
 
 type InMemoryPostRepository struct {
@@ -80,4 +82,15 @@ func (r *InMemoryPostRepository) Delete(id int64) error {
 	}
 	delete(r.store, id)
 	return nil
+}
+
+func (r *InMemoryPostRepository) List() []entity.Post {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	posts := make([]entity.Post, len(r.store))
+
+	for _, post := range r.store {
+		posts = append(posts, *post)
+	}
+	return posts
 }

@@ -48,6 +48,16 @@ func renderData(p *entity.Post) *pb.Post {
 	}
 }
 
+func renderListData(p []entity.Post) []*pb.Post {
+
+	var posts []*pb.Post
+	for i := range p {
+		outPost := renderData(&p[i])
+		posts = append(posts, outPost)
+	}
+	return posts
+}
+
 // CreatePost creates a new post.
 // Accepts CreatePostRequest and returns CreatePostResponse.
 func (s *Server) CreatePost(ctx context.Context,
@@ -149,4 +159,13 @@ func (s *Server) DeletePost(ctx context.Context,
 	}
 
 	return &pb.DeletePostResponse{Deleted: true}, nil
+}
+
+// ListPost lists all posts.
+// Returns ListPostResponse.
+func (s *Server) ListPost(context.Context,
+	*pb.ListPostRequest) (*pb.ListPostResponse, error) {
+	return &pb.ListPostResponse{
+		Post: renderListData(s.postRepo.List()),
+	}, nil
 }
